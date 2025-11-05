@@ -1,0 +1,84 @@
+#|
+# Projeto 1 - Inteligência Artificial
+#
+# Ficheiro destinado a implementar a solução do problema, definição dos operadores e heurísticas.
+#
+# Docente > Joaquim Filipe
+#
+# Alunos:
+# > Danilo Victor, 202300224
+# > Jean Oliveira, 202300095
+# > Lucas Almeida, 202100067
+|#
+
+;;; Tabuleiros
+
+(defun tabuleiro-teste ()
+"Tabuleiro de teste sem nenhuma jogada realizada"
+  '(
+	 (nil nil 1 1 1 nil nil)
+	 (nil nil 1 1 1 nil nil)
+	 (1 1 1 1 1 1 1)
+	 (1 1 1 0 1 1 1)
+	 (1 1 1 1 1 1 1)
+	 (nil nil 1 1 1 nil nil)
+	 (nil nil 1 1 1 nil nil)
+	)
+)
+
+;; Seletores
+
+;; Linha
+(defun linha (n tabuleiro)
+  "Retorna a linha n do tabuleiro"
+  (cond ((or (< n 1) (> n 7)) nil)
+             (t (nth (1- n) tabuleiro))
+   )
+)
+
+;; Coluna
+(defun coluna (n tabuleiro)
+  "Retorna a coluna n do tabuleiro"
+  (cond ((or (< n 1) (> n 7)) nil)
+             (t (mapcar #'(lambda (x) (nth (1- n) x)) tabuleiro))
+   )
+)
+
+;; Célula
+(defun celula (x y tabuleiro)
+  "Retorna a célula (x, y) do tabuleiro"
+  (cond ((or (< x 1) (> x 7) (< y 1) (> y 7)) nil)
+             (t (nth (1- x) (nth (1- y) tabuleiro)))
+   )
+)
+
+;; Funções Auxiliares
+
+;; Celula-validap
+(defun celula-validap (x y tabuleiro)
+  "Determina se a célula (x, y) do tabuleiro é válida (!= nil)"
+  (cond ((null (celula x y tabuleiro)) nil)
+             (t t)
+   )
+)
+
+;; Substituir-posicao
+(defun substituir-posicao (n linha x)
+  "Substitui o indice n da linha por x"
+  (cond ((or (< n 1) (> n 7) (null (nth (1- n) linha))) nil)
+             ((and (/= x 0) (/= x 1)) nil)
+             ((= n 1) (cons x (rest linha)))
+             (t (cons (first linha) (substituir-posicao (1- n) (rest linha) x)))
+   )
+)
+
+;; Substituir
+(defun substituir (linha n tabuleiro x)
+  "Substituir o indice n da linha do tabuleiro por x"
+  (cond ((null tabuleiro) nil)
+             ((= linha 1) (cons (substituir-posicao n (linha linha tabuleiro) x) (rest tabuleiro)))
+             (t (cons (first tabuleiro) (substituir-posicao n (linha (1- linha) tabuleiro) x)))
+   )
+)
+
+;; Operadores
