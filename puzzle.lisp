@@ -33,16 +33,16 @@
 ;; Linha
 (defun linha (n tabuleiro)
   "Retorna a linha n do tabuleiro"
-  (cond ((posicao-validap n) nil)
-             (t (nth (1- n) tabuleiro))
+  (cond ((posicao-validap n) (nth (1- n) tabuleiro))
+             (t nil) 
    )
 )
 
 ;; Coluna
 (defun coluna (n tabuleiro)
   "Retorna a coluna n do tabuleiro"
-  (cond ((posicao-validap n) nil)
-             (t (mapcar #'(lambda (x) (nth (1- n) x)) tabuleiro))
+  (cond ((posicao-validap n) (mapcar #'(lambda (x) (nth (1- n) x)) tabuleiro))
+             (t nil)
    )
 )
 
@@ -67,7 +67,7 @@
 ;; Substituir-posicao
 (defun substituir-posicao (n linha x)
   "Substitui o indice n da linha por x"
-  (cond ((or (posicao-validap n) (null (nth (1- n) linha))) nil)
+  (cond ((or (not (posicao-validap n)) (null (nth (1- n) linha))) nil)
              ((and (/= x 0) (/= x 1)) nil)
              ((= n 1) (cons x (rest linha)))
              (t (cons (first linha) (substituir-posicao (1- n) (rest linha) x)))
@@ -86,7 +86,7 @@
 ;; Posição Válida (*)
 (defun posicao-validap(x)
   "Validar se a posição x é válida no tabuleiro 7x7"
-  (cond ((and (< x 1) (> x 7)) nil)
+  (cond ((or (< x 1) (> x 7)) nil)
              (t t)
    )
 )
@@ -98,8 +98,7 @@
   "Realizar uma captura de pino à direita"
   (cond ((null tabuleiro) nil)
              ((not (celula-validap x y tabuleiro)) nil)
-             ((equal (celula x y tabuleiro) 0) nil)
-             (t ())
+             (t)
    )
 )
 
