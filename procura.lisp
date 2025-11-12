@@ -1,0 +1,14 @@
+#|
+# Projeto 1 - Inteligência Artificial
+#
+# Ficheiro destinado a implementar os métodos de procura.
+#
+# Docente > Joaquim Filipe
+#
+# Alunos:
+# > Danilo Victor, 202300224
+# > Jean Oliveira, 202300095
+# > Lucas Almeida, 202100067
+#
+|#
+

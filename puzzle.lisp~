@@ -94,49 +94,28 @@
 ;; Operadores
 
 ;; Captura Direita
-(defun operador-cd (x y tabuleiro)
+(defun captura-dir (x y tabuleiro)
   "Realizar uma captura de pino à direita"
   (cond ((null tabuleiro) nil)
              ((not (celula-validap x y tabuleiro)) nil)
-             ((equal (celula x y tabuleiro) 0) nil)
-             ((equal (celula x (1+ y) tabuleiro) 0) nil)
-             ((equal (celula x (+ y 2) tabuleiro) 1) nil)
-             (t (substituir x y (substituir x (1+ y) (substituir x (+ y 2) tabuleiro 1) 0) 0))
+             (t)
    )
 )
 
 ;; Captura Esquerda
-(defun operador-ce (x y tabuleiro)
+(defun captura-esq (x y tabuleiro)
   "Realizar uma captura de pino à esquerda"
-  (cond ((null tabuleiro) nil)
-             ((not (celula-validap x y tabuleiro)) nil)
-             ((equal (celula x y tabuleiro) 0) nil)
-             ((equal (celula x (1- y) tabuleiro) 0) nil)
-             ((equal (celula x (- y 2) tabuleiro) 1) nil)
-             (t (substituir x y (substituir x (1- y) (substituir x (- y 2) tabuleiro 1) 0) 0))
-   )
+  
 )
 
 ;; Captura Cima
-(defun operador-cc (x y tabuleiro)
+(defun captura-cima (x y tabuleiro)
   "Realizar uma captura de pino à cima"
-  (cond ((null tabuleiro) nil)
-             ((not (celula-validap x y tabuleiro)) nil)
-             ((equal (celula x y tabuleiro) 0) nil)
-             ((equal (celula (1- x) y tabuleiro) 0) nil)
-             ((equal (celula (- x 2) y tabuleiro) 1) nil)
-             (t (substituir x y (substituir (1- x) y (substituir (- x 2) y tabuleiro 1) 0) 0))
-   )
+  
 )
 
 ;; Captura Baixo
-(defun operador-cb (x y tabuleiro)
+(defun captura-baixo (x y tabuleiro)
   "Realizar uma captura de pino à baixo"
-  (cond ((null tabuleiro) nil)
-             ((not (celula-validap x y tabuleiro)) nil)
-             ((equal (celula x y tabuleiro) 0) nil)
-             ((equal (celula (1+ x) y tabuleiro) 0) nil)
-             ((equal (celula (+ x 2) y tabuleiro) 1) nil)
-             (t (substituir x y (substituir (1+ x) y (substituir (+ x 2) y tabuleiro 1) 0) 0))
-   )
+  
 )
