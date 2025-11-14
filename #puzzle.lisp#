@@ -31,6 +31,11 @@
 	)
 )
 
+(defun no-teste ()
+  "Cria um nó para testes"
+  (list (tabuleiro-teste) 0 nil)
+)
+
 ;; Seletores
 
 ;; Linha
