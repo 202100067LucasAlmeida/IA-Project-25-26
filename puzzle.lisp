@@ -1,7 +1,7 @@
 #|
-# Projeto 1 - Inteligência Artificial
+# Projeto 1 - Inteligï¿½ncia Artificial
 #
-# Ficheiro destinado a implementar a solução do problema, definição dos operadores e heurísticas.
+# Ficheiro destinado a implementar a soluï¿½ï¿½o do problema, definiï¿½ï¿½o dos operadores e heurï¿½sticas.
 #
 # Docente > Joaquim Filipe
 #
@@ -10,11 +10,11 @@
 # > Jean Oliveira, 202300095
 # > Lucas Almeida, 202100067
 #
-# > Nota: Funções assinaladas com (*) são funções definidas além do enunciado.
+# > Nota: Funï¿½ï¿½es assinaladas com (*) sï¿½o funï¿½ï¿½es definidas alï¿½m do enunciado.
 |#
 
 
-;; Variáveis de teste e operadores
+;; Variï¿½veis de teste e operadores
 
 ;;; Tabuleiros
 
@@ -32,7 +32,7 @@
 )
 
 (defun no-teste ()
-  "Cria um nó para testes"
+  "Cria um nï¿½ para testes"
   (list (tabuleiro-teste) 0 nil)
 )
 
@@ -54,19 +54,19 @@
    )
 )
 
-;; Célula
+;; Cï¿½lula
 (defun celula (x y tabuleiro)
-  "Retorna a célula (x, y) do tabuleiro"
+  "Retorna a cï¿½lula (x, y) do tabuleiro"
   (cond ((and (posicao-validap x) (posicao-validap y)) (nth (1- x) (nth (1- y) tabuleiro)))
              (t nil)
    )
 )
 
-;; Funções Auxiliares
+;; Funï¿½ï¿½es Auxiliares
 
 ;; Celula-validap
 (defun celula-validap (x y tabuleiro)
-  "Determina se a célula (x, y) do tabuleiro é válida (!= nil)"
+  "Determina se a cï¿½lula (x, y) do tabuleiro ï¿½ vï¿½lida (!= nil)"
   (cond ((null (celula x y tabuleiro)) nil)
              (t t)
    )
@@ -91,9 +91,9 @@
    )
 )
 
-;; Posição Válida (*)
+;; Posiï¿½ï¿½o Vï¿½lida (*)
 (defun posicao-validap(x)
-  "Validar se a posição x é válida no tabuleiro 7x7"
+  "Validar se a posiï¿½ï¿½o x ï¿½ vï¿½lida no tabuleiro 7x7"
   (cond ((or (< x 1) (> x 7)) nil)
              (t t)
    )
@@ -109,7 +109,7 @@
 
 ;; Captura Direita
 (defun operador-cd (x y tabuleiro)
-  "Realizar uma captura de pino à direita"
+  "Realizar uma captura de pino ï¿½ direita"
   (cond ((null tabuleiro) nil)
              ((or (not (celula-validap x y tabuleiro))
                   (not (celula-validap x (+ y 2) tabuleiro))) nil)
@@ -122,7 +122,7 @@
 
 ;; Captura Esquerda
 (defun operador-ce (x y tabuleiro)
-  "Realizar uma captura de pino à esquerda"
+  "Realizar uma captura de pino ï¿½ esquerda"
   (cond ((null tabuleiro) nil)
              ((or (not (celula-validap x y tabuleiro))
                   (not (celula-validap x (- y 2) tabuleiro))) nil)
@@ -135,7 +135,7 @@
 
 ;; Captura Cima
 (defun operador-cc (x y tabuleiro)
-  "Realizar uma captura de pino à cima"
+  "Realizar uma captura de pino ï¿½ cima"
   (cond ((null tabuleiro) nil)
              ((or (not (celula-validap x y tabuleiro))
                   (not (celula-validap (- x 2) y tabuleiro))) nil)
@@ -148,7 +148,7 @@
 
 ;; Captura Baixo
 (defun operador-cb (x y tabuleiro)
-  "Realizar uma captura de pino à baixo"
+  "Realizar uma captura de pino ï¿½ baixo"
   (cond ((null tabuleiro) nil)
              ((or (not (celula-validap x y tabuleiro))
                   (not (celula-validap (+ x 2) y tabuleiro))) nil)
@@ -159,11 +159,11 @@
    )
 )
 
-;; Nós
+;; Nï¿½s
 
 ;; Construtor
 (defun cria-no (tabuleiro &optional (p 0) (pai nil))
-  "Criar um nó com o estado do tabuleiro sua profundidade e seu nó pai"
+  "Criar um nï¿½ com o estado do tabuleiro sua profundidade e seu nï¿½ pai"
   (list tabuleiro p pai)
 )
 
@@ -176,12 +176,12 @@
 
 ;; No-profundidade
 (defun no-profundidade (no)
-  "Ver a profundidade do nó"
+  "Ver a profundidade do nï¿½"
   (second no)
 )
 
 ;; No-pai
 (defun no-pai (no)
-  "Ver o nó pai do nó"
+  "Ver o nï¿½ pai do nï¿½"
   (third no)
 )

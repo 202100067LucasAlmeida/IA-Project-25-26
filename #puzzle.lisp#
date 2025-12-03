@@ -13,6 +13,9 @@
 # > Nota: Funções assinaladas com (*) são funções definidas além do enunciado.
 |#
 
+
+;; Variáveis de teste e operadores
+
 ;;; Tabuleiros
 
 (defun tabuleiro-teste ()
@@ -26,6 +29,11 @@
 	 (nil nil 1 1 1 nil nil)
 	 (nil nil 1 1 1 nil nil)
 	)
+)
+
+(defun no-teste ()
+  "Cria um nó para testes"
+  (list (tabuleiro-teste) 0 nil)
 )
 
 ;; Seletores
@@ -91,20 +99,13 @@
    )
 )
 
-;; Movimento Válido(*)
-(defun movimento-validop (dir x y tabuleiro)
-  (cond ((equal dir 'h)
-              (cond ((equal (celula x y tabuleiro) 0) nil)
-                         ((equal (celula x (1+ y) tabuleiro) 0) nil)
-                         ((equal (celula x (+ y 2) tabuleiro) 1) nil)
-               )
-              )
-             ((equal dir 'v))
-             (t nil)
-   )
-)
+;; Operadores
 
 ;; Operadores
+(defun operadores ()
+  "Cria uma lista com todos os operadores do jogo"
+  (list 'operador-cd 'operador-ce 'operador-cc 'operador-cb)
+)
 
 ;; Captura Direita
 (defun operador-cd (x y tabuleiro)
@@ -152,4 +153,31 @@
              ((equal (celula (+ x 2) y tabuleiro) 1) nil)
              (t (substituir x y (substituir (1+ x) y (substituir (+ x 2) y tabuleiro 1) 0) 0))
    )
+)
+
+;; Nós
+
+;; Construtor
+(defun cria-no (tabuleiro &optional (p 0) (pai nil))
+  "Criar um nó com o estado do tabuleiro sua profundidade e seu nó pai"
+  (list tabuleiro p pai)
+)
+
+;; Seletores
+;; No-estado
+(defun no-estado (no)
+  "Ver o estado do tabuleiro"
+  (first no)
+)
+
+;; No-profundidade
+(defun no-profundidade (no)
+  "Ver a profundidade do nó"
+  (second no)
+)
+
+;; No-pai
+(defun no-pai (no)
+  "Ver o nó pai do nó"
+  (third no)
 )
