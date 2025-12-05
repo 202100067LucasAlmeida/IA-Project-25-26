@@ -21,13 +21,13 @@
 (defun tabuleiro-teste ()
   "Tabuleiro de teste sem nenhuma jogada realizada"
   '(
-	 (nil nil 1 1 1 nil nil)
-	 (nil nil 1 1 1 nil nil)
-	 (1 1 1 1 1 1 1)
-	 (1 1 1 0 1 1 1)
-	 (1 1 1 1 1 1 1)
-	 (nil nil 1 1 1 nil nil)
-	 (nil nil 1 1 1 nil nil)
+	 (nil nil 0 0 0 nil nil)
+	 (nil nil 0 0 0 nil nil)
+	 ( 0   0  0 0 1  0   0 )
+	 ( 0   0  0 0 1  1   0 )
+	 ( 0   0  0 1 1  1   0 )
+	 (nil nil 0 0 0 nil nil)
+	 (nil nil 0 0 0 nil nil)
 	)
 )
 
@@ -57,7 +57,8 @@
 ;; Célula
 (defun celula (x y tabuleiro)
   "Retorna a célula (x, y) do tabuleiro"
-  (cond ((and (posicao-validap x) (posicao-validap y)) (nth (1- x) (nth (1- y) tabuleiro)))
+  (cond ((and (posicao-validap x) (posicao-validap y)) 
+         (nth (1- y) (nth (1- x) tabuleiro)))
              (t nil)
    )
 )
@@ -199,7 +200,7 @@
 (defun no-solucaop (no)
   "Verfica se o nó é solução"
   (let ((x (apply #'+ (mapcar #'(lambda (linha) (count 1 linha)) (no-estado no)))))
-       (cond ((= 1 x) t)
+       (cond ((= 1 x) no)
           (t nil)
        )
   )
