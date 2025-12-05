@@ -19,7 +19,7 @@
 ;;; Tabuleiros
 
 (defun tabuleiro-teste ()
-"Tabuleiro de teste sem nenhuma jogada realizada"
+  "Tabuleiro de teste sem nenhuma jogada realizada"
   '(
 	 (nil nil 1 1 1 nil nil)
 	 (nil nil 1 1 1 nil nil)
@@ -186,11 +186,25 @@
   (third no)
 )
 
+(defun no-heuristica (no)
+  "Por enquanto devolve 0 para não atrapalhar as antigas esquisas"
+  0
+)
+
+(defun no-valor (no)
+  "Calcula o valor do nó"
+  (+ (no-profundidade no) (no-heuristica no))
+)
+
 (defun no-solucaop (no)
-"Verfica se o nó é solução"
+  "Verfica se o nó é solução"
   (let ((x (apply #'+ (mapcar #'(lambda (linha) (count 1 linha)) (no-estado no)))))
        (cond ((= 1 x) t)
           (t nil)
        )
   )
+)
+
+(defun movimentos-possiveis (tabuleiro)
+  "TODO"
 )
