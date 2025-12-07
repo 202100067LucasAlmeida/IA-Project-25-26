@@ -1,7 +1,7 @@
 #|
-# Projeto 1 - Intelig√™ncia Artificial
+# Projeto 1 - Intelig√É¬™ncia Artificial
 #
-# Ficheiro destinado a implementar a interaÁ„o com utilizador, ler e gravar ficheiro, carregar outros ficheiros do projeto
+# Ficheiro destinado a implementar a intera√ß√£o com utilizador, ler e gravar ficheiro, carregar outros ficheiros do projeto
 #
 # Docente > Joaquim Filipe
 #
@@ -15,7 +15,7 @@
 (load "D:\\Trabalhos\\IA\\IA-Project-25-26\\procura.lisp")
 (load "D:\\Trabalhos\\IA\\IA-Project-25-26\\puzzle.lisp")
 
-;;;;FunÁ„o Inicial
+;;;;Fun√ß√£o Inicial
 
 (defun iniciar()
   (let* ((problema (escolher-problema))
@@ -46,9 +46,9 @@
   )
 
 (defun escolher-problema()
-  (format t "~%Problemas disponÌveis:~%")
+  (format t "~%Problemas dispon√≠veis:~%")
   (mostrar-problemas-rec (ler-problemas) 1)
-  (format t "~%Escolha o n∫ do problema: ")
+  (format t "~%Escolha o n¬∫ do problema: ")
   (let* ((n (read))
          (lista (ler-problemas)))
     (nth (1- n) lista))
@@ -68,7 +68,7 @@
 
 (defun ler-heuristica ()
   (format t "~%Escolha a heuristica:~%")
-  (format t "1 - opÁ„o 1~%2 - OpÁao 2~%")
+  (format t "1 - op√ß√£o 1~%2 - Op√ßao 2~%")
   (case (read)
     (1 'heuristica-1)
     (2 'heuristica-2)
@@ -93,11 +93,12 @@
   (format t "Guardar Resultado? (s/n): ")
   (case (read)
     ((s S) (gravar resultado))
-    (otherwise (format t "~%Ok, n„o ser· gravado.~%")))
+    (otherwise (format t "~%Ok, n√£o ser√° gravado.~%")))
 )
 
 (defun gravar (resultado)
-  (with-open-file (f "resultados.dat" :direction :output :if-exists :append :if-does-not-exist :create)
+  (with-open-file (f "D:\\Trabalhos\\IA\\IA-Project-25-26\\resultados.dat" 
+                     :direction :output :if-exists :append :if-does-not-exist :create)
    (format f "~%----------------------------------~%")
    (format f "~A~%" resultado)
    (format f "----------------------------------~%")

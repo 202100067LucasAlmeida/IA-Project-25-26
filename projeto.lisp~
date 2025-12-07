@@ -12,8 +12,8 @@
 #
 |#
 
-(load "D:\\Trabalhos\\IA\\IA-Project-25-26\\procura.lisp")
-(load "D:\\Trabalhos\\IA\\IA-Project-25-26\\puzzle.lisp")
+(load "procura.lisp")
+(load "puzzle.lisp")
 
 ;;;;Função Inicial
 
@@ -22,14 +22,14 @@
          (algoritmo (ler-algoritmo))
          (heuristica (if (equal algoritmo 'a-estrela) (ler-heuristica)))
          (no (cria-no problema))
-         (resultado (executar algoritmo no heuristica)))
+         (resultado (executar algortimo no heuristica)))
     (mostrar-resultado resultado)
     (decidir-gravar resultado)))
 
 ;;Leitura ficheiros
 
 (defun ler-problemas()
-  (with-open-file (f "D:\\Trabalhos\\IA\\IA-Project-25-26\\problemas.dat" :direction :input)
+  (with-open-file (f "problemas.dat" :direction :input)
     (labels ((ler-rec (acc)
                (let ((p (read f nil nil)))
                  (if p (ler-rec (cons p acc))
@@ -43,7 +43,7 @@
    ((null lst) nil)
    (t (format t "~A - ~A~%" n (car lst))
       (mostrar-problemas-rec (cdr lst) (+ n 1))))
-  )
+)
 
 (defun escolher-problema()
   (format t "~%Problemas disponíveis:~%")
@@ -52,7 +52,7 @@
   (let* ((n (read))
          (lista (ler-problemas)))
     (nth (1- n) lista))
-  )
+)
 
 ;;; Leitura de algoritmo
 
@@ -73,34 +73,5 @@
     (1 'heuristica-1)
     (2 'heuristica-2)
     (otherwise (ler-heuristica)))
-  )
-
-(defun executar (algoritmo no heuristica)
-  (cond ((equal algoritmo 'bfs) (bfs no 'no-solucaop 'sucessores (operadores)))
-        ((equal algoritmo 'dfs) (dfs no 'no-solucaop 'sucessores (operadores) 9999))
-        ((equal algoritmo 'a-estrela) (a-estrela no 'no-solucaop 'sucessores (operadores) heuristica))
-        (t (format t "Error"))
-   )
 )
 
-;;; Ficheiros e resultados
-
-(defun mostrar-resultado (res)
-  (format t "~%Resultado: ~A~%" res)
-)
-
-(defun decidir-gravar (resultado)
-  (format t "Guardar Resultado? (s/n): ")
-  (case (read)
-    ((s S) (gravar resultado))
-    (otherwise (format t "~%Ok, não será gravado.~%")))
-)
-
-(defun gravar (resultado)
-  (with-open-file (f "resultados.dat" :direction :output :if-exists :append :if-does-not-exist :create)
-   (format f "~%----------------------------------~%")
-   (format f "~A~%" resultado)
-   (format f "----------------------------------~%")
-   (format t "~%Resultado guardado.~%")
-  )
-)
