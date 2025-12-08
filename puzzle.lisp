@@ -21,19 +21,19 @@
 (defun tabuleiro-teste ()
   "Tabuleiro de teste sem nenhuma jogada realizada"
   '(
-	 (nil nil 0 0 0 nil nil)
-	 (nil nil 0 0 0 nil nil)
-	 ( 0   0  0 0 1  0   0 )
-	 ( 0   0  0 0 1  1   0 )
-	 ( 0   0  0 1 1  1   0 )
-	 (nil nil 0 0 0 nil nil)
-	 (nil nil 0 0 0 nil nil)
+	 (nil nil 1 1 1 nil nil)
+	 (nil nil 1 1 1 nil nil)
+	 (1 1 1 1 1 1 1)
+	 (1 1 1 0 1 1 1)
+	 (1 1 1 1 1 1 1)
+	 (nil nil 1 1 1 nil nil)
+	 (nil nil 1 1 1 nil nil)
 	)
 )
 
 (defun no-teste ()
   "Cria um nó para testes"
-  (list (tabuleiro-teste) 0 nil)
+  (list (tabuleiro-teste) 0 (heuristica (tabuleiro-teste)) nil)
 )
 
 ;; Seletores
@@ -57,8 +57,7 @@
 ;; Célula
 (defun celula (x y tabuleiro)
   "Retorna a célula (x, y) do tabuleiro"
-  (cond ((and (posicao-validap x) (posicao-validap y)) 
-         (nth (1- y) (nth (1- x) tabuleiro)))
+  (cond ((and (posicao-validap x) (posicao-validap y)) (nth (1- y) (nth (1- x) tabuleiro)))
              (t nil)
    )
 )
@@ -89,7 +88,7 @@
   (cond ((null tabuleiro) nil)
              ((= l 1) (cons (substituir-posicao n (first tabuleiro) x) (rest tabuleiro)))
              (t (cons (first tabuleiro) (substituir (1- l) n (rest tabuleiro) x)))
-   )
+  )
 )
 
 ;; Posição Válida (*)
@@ -165,7 +164,7 @@
 ;; Construtor
 (defun cria-no (tabuleiro &optional (p 0) (pai nil))
   "Criar um nó com o estado do tabuleiro sua profundidade e seu nó pai"
-  (list tabuleiro p pai)
+  (list tabuleiro p (heuristica tabuleiro) pai)
 )
 
 ;; Seletores
@@ -184,12 +183,12 @@
 ;; No-pai
 (defun no-pai (no)
   "Ver o nó pai do nó"
-  (third no)
+  (fourth no)
 )
 
 (defun no-heuristica (no)
-  "Por enquanto devolve 0 para não atrapalhar as antigas esquisas"
-  0
+  "Ver a heuristica do nó"
+  (third no)
 )
 
 (defun no-valor (no)
@@ -200,12 +199,13 @@
 (defun no-solucaop (no)
   "Verfica se o nó é solução"
   (let ((x (apply #'+ (mapcar #'(lambda (linha) (count 1 linha)) (no-estado no)))))
-       (cond ((= 1 x) no)
+       (cond ((= 1 x) t)
           (t nil)
        )
   )
 )
 
 (defun movimentos-possiveis (tabuleiro)
-  "TODO"
+  "Calcula a quantidade de movimentos possiveis em um tabuleiro"
+  0
 )

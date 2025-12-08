@@ -24,9 +24,7 @@
         ((> y 7) (novo-sucessor-recursivo no operador (1+ x)))
         (t (let ((novo-tabuleiro (funcall operador x y (no-estado no))))
              (cond ((null novo-tabuleiro) (novo-sucessor-recursivo no operador x (1+ y)))
-                 (t (cons (cria-no novo-tabuleiro (1+ (no-profundidade no)) no) 
-                          (novo-sucessor-recursivo no operador x (1+ y)))
-                 )
+                 (t (cons (cria-no novo-tabuleiro (1+ (no-profundidade no)) no) (novo-sucessor-recursivo no operador x (1+ y))))
              )
            )
         )
@@ -57,6 +55,7 @@
   (append sucessores abertos)
 )
 
+
 (defun bfs (no-inicial no-solucaop sucessores operadores &optional(lista-aberto) (lista-fechado))
   (cond ((or (null no-inicial) (null no-solucaop) (null sucessores) (null operadores)) nil)
         (t (bfs-recursivo no-solucaop sucessores operadores (cons no-inicial lista-aberto) lista-fechado))
@@ -66,7 +65,9 @@
 (defun bfs-recursivo (no-solucaop sucessores operadores lista-aberto lista-fechado)
   (cond ((null lista-aberto) nil)
         (t (let* ((lista-sucessores (funcall sucessores (car lista-aberto) operadores 'bfs))
-                (x (format t "~a~%~%" lista-sucessores))
+                ;(x (format t "~a~%~%" lista-sucessores))
+                (x (format t "~a~%~%" lista-aberto))
+                (x (format t "~a~%~%~%" lista-fechado))
                 (no-solucao (remove nil (mapcar #'(lambda (x) (funcall no-solucaop x)) lista-aberto))))
                 (cond (no-solucao (car no-solucao))
                   (t (bfs-recursivo no-solucaop sucessores operadores (abertos-bfs (cdr lista-aberto) lista-sucessores)
@@ -121,10 +122,7 @@
 
 (defun heuristica (tabuleiro)
   "Calcula a heurística de acordo com a quantidade de movimentos possiveis no tabuleiro (Dado pelo professor!)"
-  (cond ((or (= (first tabuleiro) 1) (= (second tabuleiro) 1)) 0)
-        ((and (= (first tabuleiro) (second tabuleiro)) (not (= (first tabuleiro) 1))) 1)
-        (t 2)
-  )
+  (/ 1 (+ (movimentos-possiveis tabuleiro) 1))
 )
 
 (defun ordenar-nos (nos)
