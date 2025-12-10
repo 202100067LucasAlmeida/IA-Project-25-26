@@ -1,0 +1,53 @@
+;; Problema A
+((nil nil 0   0   0   nil nil)
+(nil nil 0   0   0   nil nil)
+(0    0   0   0   0   0    0)
+(0    0   0   0   0   0    0)
+(0    0   0   0   1   1    0)
+(nil nil 0   1   0   nil nil)
+(nil nil 0   0   0   nil nil))
+
+;; Problema B
+((nil nil 0   0   0   nil nil)
+(nil nil 0   0   0   nil nil)
+(0    0   0   0   0   0    0)
+(0    0   0   1   0   0    0)
+(0    0   0   1   1   1    0)
+(nil nil 0   0   0   nil nil)
+(nil nil 0   0   0   nil nil))
+
+;; Problema C
+((nil nil 0   0   0   nil nil)
+(nil nil 0   0   0   nil nil)
+(0    0   0   0   1   0    0)
+(0    0   0   0   1   1    0)
+(0    0   0   1   1   1    0)
+(nil nil 0   0   0   nil nil)
+(nil nil 0   0   0   nil nil))
+
+;; Problema D
+((nil nil 0   0   0   nil nil)
+(nil nil 0   0   1   nil nil)
+(0    0   0   0   1   1    0)
+(0    0   0   0   1   1    1)
+(0    0   0   1   1   1    1)
+(nil nil 0   0   0   nil nil)
+(nil nil 0   0   0   nil nil))
+
+;; Problema E
+((nil nil 0   0   0   nil nil)
+(nil nil 0   0   0   nil nil)
+(0    0   0   1   1   1    1)
+(0    0   0   0   1   1    1)
+(0    0   0   1   1   1    1)
+(nil nil 0   0   0   nil nil)
+(nil nil 0   0   0   nil nil))
+
+;; Problema F
+((nil nil 1   1   1   nil nil)
+(nil nil 1   1   1   nil nil)
+(1    1   1   1   1   1    1)
+(1    1   1   0   1   1    1)
+(1    1   1   1   1   1    1)
+(nil nil 1   1   1   nil nil)
+(nil nil 1   1   1   nil nil))
