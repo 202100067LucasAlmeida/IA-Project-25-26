@@ -13,6 +13,9 @@
 # > Nota: Funções assinaladas com (*) são funções definidas além do enunciado.
 |#
 
+
+;; Variáveis de teste e operadores
+
 ;;; Tabuleiros
 
 (defun tabuleiro-teste ()
@@ -26,6 +29,11 @@
 	 (nil nil 1 1 1 nil nil)
 	 (nil nil 1 1 1 nil nil)
 	)
+)
+
+(defun no-teste ()
+  "Cria um nó para testes"
+  (list (tabuleiro-teste) 0 nil)
 )
 
 ;; Seletores
@@ -93,29 +101,83 @@
 
 ;; Operadores
 
+;; Operadores
+(defun operadores ()
+  "Cria uma lista com todos os operadores do jogo"
+  (list 'operador-cd 'operador-ce 'operador-cc 'operador-cb)
+)
+
 ;; Captura Direita
-(defun captura-dir (x y tabuleiro)
+(defun operador-cd (x y tabuleiro)
   "Realizar uma captura de pino à direita"
   (cond ((null tabuleiro) nil)
              ((not (celula-validap x y tabuleiro)) nil)
-             (t)
+             ((equal (celula x y tabuleiro) 0) nil)
+             ((equal (celula x (1+ y) tabuleiro) 0) nil)
+             ((equal (celula x (+ y 2) tabuleiro) 1) nil)
+             (t (substituir x y (substituir x (1+ y) (substituir x (+ y 2) tabuleiro 1) 0) 0))
    )
 )
 
 ;; Captura Esquerda
-(defun captura-esq (x y tabuleiro)
+(defun operador-ce (x y tabuleiro)
   "Realizar uma captura de pino à esquerda"
-  
+  (cond ((null tabuleiro) nil)
+             ((not (celula-validap x y tabuleiro)) nil)
+             ((equal (celula x y tabuleiro) 0) nil)
+             ((equal (celula x (1- y) tabuleiro) 0) nil)
+             ((equal (celula x (- y 2) tabuleiro) 1) nil)
+             (t (substituir x y (substituir x (1- y) (substituir x (- y 2) tabuleiro 1) 0) 0))
+   )
 )
 
 ;; Captura Cima
-(defun captura-cima (x y tabuleiro)
+(defun operador-cc (x y tabuleiro)
   "Realizar uma captura de pino à cima"
-  
+  (cond ((null tabuleiro) nil)
+             ((not (celula-validap x y tabuleiro)) nil)
+             ((equal (celula x y tabuleiro) 0) nil)
+             ((equal (celula (1- x) y tabuleiro) 0) nil)
+             ((equal (celula (- x 2) y tabuleiro) 1) nil)
+             (t (substituir x y (substituir (1- x) y (substituir (- x 2) y tabuleiro 1) 0) 0))
+   )
 )
 
 ;; Captura Baixo
-(defun captura-baixo (x y tabuleiro)
+(defun operador-cb (x y tabuleiro)
   "Realizar uma captura de pino à baixo"
-  
+  (cond ((null tabuleiro) nil)
+             ((not (celula-validap x y tabuleiro)) nil)
+             ((equal (celula x y tabuleiro) 0) nil)
+             ((equal (celula (1+ x) y tabuleiro) 0) nil)
+             ((equal (celula (+ x 2) y tabuleiro) 1) nil)
+             (t (substituir x y (substituir (1+ x) y (substituir (+ x 2) y tabuleiro 1) 0) 0))
+   )
+)
+
+;; Nós
+
+;; Construtor
+(defun cria-no (tabuleiro &optional (p 0) (pai nil))
+  "Criar um nó com o estado do tabuleiro sua profundidade e seu nó pai"
+  (list tabuleiro p pai)
+)
+
+;; Seletores
+;; No-estado
+(defun no-estado (no)
+  "Ver o estado do tabuleiro"
+  (first no)
+)
+
+;; No-profundidade
+(defun no-profundidade (no)
+  "Ver a profundidade do nó"
+  (second no)
+)
+
+;; No-pai
+(defun no-pai (no)
+  "Ver o nó pai do nó"
+  (third no)
 )
