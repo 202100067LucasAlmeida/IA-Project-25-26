@@ -59,6 +59,7 @@
 (defun ler-algoritmo ()
   (format t "~%Escolha o algoritmo:~%")
   (format t "1 - BFS~%2 - DFS~%3 - A*~%")
+  (format t "> ")
   (case (read)
     (1 'bfs)
     (2 'dfs)
@@ -97,7 +98,7 @@
 )
 
 (defun gravar (resultado)
-  (with-open-file (f "resultados.dat" :direction :output :if-exists :append :if-does-not-exist :create)
+  (with-open-file (f "D:\\Trabalhos\\IA\\IA-Project-25-26\\resultados.dat" :direction :output :if-exists :append :if-does-not-exist :create)
    (format f "~%----------------------------------~%")
    (format f "~A~%" resultado)
    (format f "----------------------------------~%")
