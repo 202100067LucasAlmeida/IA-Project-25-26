@@ -20,15 +20,13 @@
 
 (defun tabuleiro-teste ()
   "Tabuleiro de teste sem nenhuma jogada realizada"
-  '(
-	 (nil nil 1 1 1 nil nil)
-	 (nil nil 1 1 1 nil nil)
-	 (1 1 1 1 1 1 1)
-	 (1 1 1 0 1 1 1)
-	 (1 1 1 1 1 1 1)
-	 (nil nil 1 1 1 nil nil)
-	 (nil nil 1 1 1 nil nil)
-	)
+  '((nil nil  1   1   1  nil nil)
+    (nil nil  1   1   1  nil nil)
+    ( 1   1   1   1   1   1   1 )
+    ( 1   1   1   0   1   1   1 )
+    ( 1   1   1   1   1   1   1 )
+    (nil nil  1   1   1  nil nil)
+    (nil nil  1   1   1  nil nil))
 )
 
 (defun no-teste ()
@@ -199,7 +197,7 @@
 (defun no-solucaop (no)
   "Verfica se o nó é solução"
   (let ((x (apply #'+ (mapcar #'(lambda (linha) (count 1 linha)) (no-estado no)))))
-       (cond ((= 1 x) t)
+       (cond ((= 1 x) no)
           (t nil)
        )
   )
@@ -207,17 +205,18 @@
 
 (defun movimentos-possiveis (tabuleiro)
   "Calcula a quantidade de movimentos possiveis em um tabuleiro"
-  (mapcar #'+ (lambda (operador)(contagem tabuleiro operador))(operadores))
+  (apply #'+ (mapcar #'(lambda (operador)(contagem tabuleiro operador))(operadores)))
 )
 
 (defun contagem (tabuleiro operador &optional(x 1) (y 1))
   "Gera um novo nó, a partir do operador e nó pai"
   (cond ((> x 7) 0)
         ((> y 7) (contagem tabuleiro operador (1+ x)))
-        (t (let* ((novo-tabuleiro (funcall operador x y (tabuleiro))))
+        (t (let* ((novo-tabuleiro (funcall operador x y tabuleiro))
                 (contador (cond ((null novo-tabuleiro) (+ 0 (contagem tabuleiro operador x (1+ y))))
                                 (t (+ 1 (contagem tabuleiro operador x (1+ y))))
-                ))
+                )))
+                contador
            )
         )
   )
