@@ -22,9 +22,9 @@
   "Tabuleiro de teste sem nenhuma jogada realizada"
   '((nil nil 0   0   0   nil nil)
 (nil nil 0   0   0   nil nil)
-(0    0   0   0   0   0    0)
-(0    0   0   1   0   0    0)
-(0    0   0   1   1   1    0)
+(0    0   0   1   1   1    1)
+(0    0   0   0   1   1    1)
+(0    0   0   1   1   1    1)
 (nil nil 0   0   0   nil nil)
 (nil nil 0   0   0   nil nil))
 )
