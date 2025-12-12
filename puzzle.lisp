@@ -31,7 +31,7 @@
 
 (defun no-teste ()
   "Cria um nó para testes"
-  (list (tabuleiro-teste) 0 (heuristica-1 (tabuleiro-teste)) nil)
+  (list (tabuleiro-teste) 0 (heuristica-2 (tabuleiro-teste)) nil)
 )
 
 ;; Seletores
@@ -205,17 +205,32 @@
 
 (defun movimentos-possiveis (tabuleiro)
   "Calcula a quantidade de movimentos possiveis em um tabuleiro"
-  (apply #'+ (mapcar #'(lambda (operador)(contagem tabuleiro operador))(operadores)))
+  (apply #'+ (mapcar #'(lambda(operador) (contagem-movimentos tabuleiro operador)) (operadores)))
 )
 
-(defun contagem (tabuleiro operador &optional(x 1) (y 1))
+(defun contagem-movimentos (tabuleiro operador &optional(x 1) (y 1))
   "Gera um novo nó, a partir do operador e nó pai"
   (cond ((> x 7) 0)
-        ((> y 7) (contagem tabuleiro operador (1+ x)))
+        ((> y 7) (contagem-movimentos tabuleiro operador (1+ x)))
         (t (let* ((novo-tabuleiro (funcall operador x y tabuleiro))
-                (contador (cond ((null novo-tabuleiro) (+ 0 (contagem tabuleiro operador x (1+ y))))
-                                (t (+ 1 (contagem tabuleiro operador x (1+ y))))
+                (contador (cond ((null novo-tabuleiro) (+ 0 (contagem-movimentos tabuleiro operador x (1+ y))))
+                                (t (+ 1 (contagem-movimentos tabuleiro operador x (1+ y))))
                 )))
+                contador
+           )
+        )
+  )
+)
+
+(defun distancia-ao-centro (tabuleiro &optional(x 1) (y 1))
+  "Faz a soma da distancia de cada peão ao centro do tabuleiro (4 4)"
+  (cond ((> x 7) 0)
+        ((> y 7) (distancia-ao-centro tabuleiro (1+ x)))
+        (t (let* ((contador (cond ((or (null (celula x y tabuleiro)) (= (celula x y tabuleiro) 0))
+                                    (+ 0 (distancia-ao-centro tabuleiro x (1+ y))))
+                                  (t (+ (+ (abs (- x 4)) (abs (- y 4))) (distancia-ao-centro tabuleiro x (1+ y))))
+                           )
+                ))
                 contador
            )
         )

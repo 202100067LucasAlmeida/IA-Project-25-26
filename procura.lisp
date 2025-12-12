@@ -91,7 +91,7 @@
  
 (defun dfs-recursivo (no-solucaop sucessores operadores profundidade-max lista-aberto lista-fechado)
   (cond ((null lista-aberto) nil)
-        (t (let* ((lista-sucessores (funcall sucessores (car lista-aberto) operadores 'dfs :profundidade 10))
+        (t (let* ((lista-sucessores (funcall sucessores (car lista-aberto) operadores 'dfs :profundidade profundidade-max))
                 ;(x (format t "~a~%~%" lista-sucessores))
                 ;(x (format t "~a~%~%" lista-aberto))
                 ;(x (format t "~a~%~%~%" lista-fechado))
@@ -130,8 +130,13 @@
 )
 
 (defun heuristica-1 (tabuleiro)
-  "Calcula a heurística de acordo com a quantidade de movimentos possiveis no tabuleiro (Dado pelo professor!)"
+  "Calcula a heurística de acordo com a quantidade de movimentos possiveis no tabuleiro"
   (/ 1 (+ (movimentos-possiveis tabuleiro) 1))
+)
+
+(defun heuristica-2 (tabuleiro)
+  "Calcula a heurística de acordo com a distancia de cada nó ao centro do tabuleiro, quão mais longe, pior a heurística"
+  (distancia-ao-centro tabuleiro)
 )
 
 (defun ordenar-nos (nos)
