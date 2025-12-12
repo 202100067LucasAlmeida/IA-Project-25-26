@@ -1,7 +1,7 @@
 #|
-# Projeto 1 - InteligÃªncia Artificial
+# Projeto 1 - Inteligência Artificial
 #
-# Ficheiro destinado a implementar a soluÃ§Ã£o do problema, definiÃ§Ã£o dos operadores e heurÃ­sticas.
+# Ficheiro destinado a implementar a solução do problema, definição dos operadores e heurísticas.
 #
 # Docente > Joaquim Filipe
 #
@@ -10,30 +10,28 @@
 # > Jean Oliveira, 202300095
 # > Lucas Almeida, 202100067
 #
-# > Nota: FunÃ§Ãµes assinaladas com (*) sÃ£o funÃ§Ãµes definidas alÃ©m do enunciado.
+# > Nota: Funções assinaladas com (*) são funções definidas além do enunciado.
 |#
 
 
-;; Varáveis de teste e operadores
+;; Variáveis de teste e operadores
 
 ;;; Tabuleiros
 
 (defun tabuleiro-teste ()
   "Tabuleiro de teste sem nenhuma jogada realizada"
-  '(
-	 (nil nil 1 1 1 nil nil)
-	 (nil nil 1 1 1 nil nil)
-	 (1 1 1 1 1 1 1)
-	 (1 1 1 0 1 1 1)
-	 (1 1 1 1 1 1 1)
-	 (nil nil 1 1 1 nil nil)
-	 (nil nil 1 1 1 nil nil)
-	)
+  '((nil nil  1   1   1  nil nil)
+    (nil nil  1   1   1  nil nil)
+    ( 1   1   1   1   1   1   1 )
+    ( 1   1   1   0   1   1   1 )
+    ( 1   1   1   1   1   1   1 )
+    (nil nil  1   1   1  nil nil)
+    (nil nil  1   1   1  nil nil))
 )
 
 (defun no-teste ()
   "Cria um nó para testes"
-  (list (tabuleiro-teste) 0 nil)
+  (list (tabuleiro-teste) 0 (heuristica (tabuleiro-teste)) nil)
 )
 
 ;; Seletores
@@ -54,7 +52,7 @@
    )
 )
 
-;; CÃ©lula
+;; Célula
 (defun celula (x y tabuleiro)
   "Retorna a célula (x, y) do tabuleiro"
   (cond ((and (posicao-validap x) (posicao-validap y)) (nth (1- y) (nth (1- x) tabuleiro)))
@@ -62,11 +60,11 @@
    )
 )
 
-;; FunÃ§Ãµes Auxiliares
+;; Funções Auxiliares
 
 ;; Celula-validap
 (defun celula-validap (x y tabuleiro)
-  "Determina se a cÃ©lula (x, y) do tabuleiro Ã© vÃ¡lida (!= nil)"
+  "Determina se a célula (x, y) do tabuleiro é válida (!= nil)"
   (cond ((null (celula x y tabuleiro)) nil)
              (t t)
    )
@@ -91,9 +89,9 @@
   )
 )
 
-;; PosiÃ§Ã£o VÃ¡lida (*)
+;; Posição Válida (*)
 (defun posicao-validap(x)
-  "Validar se a posiÃ§Ã£o x Ã© vÃ¡lida no tabuleiro 7x7"
+  "Validar se a posição x é válida no tabuleiro 7x7"
   (cond ((or (< x 1) (> x 7)) nil)
              (t t)
    )
@@ -103,13 +101,13 @@
 
 ;; Operadores
 (defun operadores ()
-  "Cria uma lista com todos os operadores do jogo solitário"
+  "Cria uma lista com todos os operadores do jogo"
   (list 'operador-cd 'operador-ce 'operador-cc 'operador-cb)
 )
 
 ;; Captura Direita
 (defun operador-cd (x y tabuleiro)
-  "Realizar uma captura de pino Ã  direita"
+  "Realizar uma captura de pino à direita"
   (cond ((null tabuleiro) nil)
              ((or (not (celula-validap x y tabuleiro))
                   (not (celula-validap x (+ y 2) tabuleiro))) nil)
@@ -122,7 +120,7 @@
 
 ;; Captura Esquerda
 (defun operador-ce (x y tabuleiro)
-  "Realizar uma captura de pino Ã  esquerda"
+  "Realizar uma captura de pino à esquerda"
   (cond ((null tabuleiro) nil)
              ((or (not (celula-validap x y tabuleiro))
                   (not (celula-validap x (- y 2) tabuleiro))) nil)
@@ -135,7 +133,7 @@
 
 ;; Captura Cima
 (defun operador-cc (x y tabuleiro)
-  "Realizar uma captura de pino Ã  cima"
+  "Realizar uma captura de pino à cima"
   (cond ((null tabuleiro) nil)
              ((or (not (celula-validap x y tabuleiro))
                   (not (celula-validap (- x 2) y tabuleiro))) nil)
@@ -148,7 +146,7 @@
 
 ;; Captura Baixo
 (defun operador-cb (x y tabuleiro)
-  "Realizar uma captura de pino Ã  baixo"
+  "Realizar uma captura de pino à baixo"
   (cond ((null tabuleiro) nil)
              ((or (not (celula-validap x y tabuleiro))
                   (not (celula-validap (+ x 2) y tabuleiro))) nil)
@@ -164,7 +162,7 @@
 ;; Construtor
 (defun cria-no (tabuleiro &optional (p 0) (pai nil))
   "Criar um nó com o estado do tabuleiro sua profundidade e seu nó pai"
-  (list tabuleiro p pai)
+  (list tabuleiro p (heuristica tabuleiro) pai)
 )
 
 ;; Seletores
@@ -182,24 +180,24 @@
 
 ;; No-pai
 (defun no-pai (no)
-  "Ver o nÃ³ pai do nÃ³"
+  "Ver o nó pai do nó"
   (fourth no)
 )
 
 (defun no-heuristica (no)
-  "Ver a heuristica do nÃ³"
+  "Ver a heuristica do nó"
   (third no)
 )
 
 (defun no-valor (no)
-  "Calcula o valor do nÃ³"
+  "Calcula o valor do nó"
   (+ (no-profundidade no) (no-heuristica no))
 )
 
 (defun no-solucaop (no)
-  "Verfica se o nÃ³ Ã© soluÃ§Ã£o"
+  "Verfica se o nó é solução"
   (let ((x (apply #'+ (mapcar #'(lambda (linha) (count 1 linha)) (no-estado no)))))
-       (cond ((= 1 x) t)
+       (cond ((= 1 x) no)
           (t nil)
        )
   )
@@ -207,5 +205,19 @@
 
 (defun movimentos-possiveis (tabuleiro)
   "Calcula a quantidade de movimentos possiveis em um tabuleiro"
-  0
+  (apply #'+ (mapcar #'(lambda (operador)(contagem tabuleiro operador))(operadores)))
+)
+
+(defun contagem (tabuleiro operador &optional(x 1) (y 1))
+  "Gera um novo nó, a partir do operador e nó pai"
+  (cond ((> x 7) 0)
+        ((> y 7) (contagem tabuleiro operador (1+ x)))
+        (t (let* ((novo-tabuleiro (funcall operador x y tabuleiro))
+                (contador (cond ((null novo-tabuleiro) (+ 0 (contagem tabuleiro operador x (1+ y))))
+                                (t (+ 1 (contagem tabuleiro operador x (1+ y))))
+                )))
+                contador
+           )
+        )
+  )
 )
