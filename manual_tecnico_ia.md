@@ -379,7 +379,9 @@ O jogo termina quando resta apenas 1 pino no tabuleiro.
 
 ### 3.6 Métricas de Desempenho
 
-**Métricas a Implementar (conforme enunciado):**
+**Métricas:**
+
+As métricas foram implementadas em código sendo fornecidas ao utilizador e guardadas num ficheiro.
 
 1. **Fator de Ramificação Médio (b*):**
    ```
@@ -405,8 +407,6 @@ O jogo termina quando resta apenas 1 pino no tabuleiro.
    ```lisp
    (time (executar algoritmo no heuristica))
    ```
-
-**Nota:** Estas métricas ainda não estão implementadas no código atual.
 
 ---
 
