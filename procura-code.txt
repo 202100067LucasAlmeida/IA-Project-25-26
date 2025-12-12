@@ -1,7 +1,7 @@
 #|
-# Projeto 1 - Inteligência Artificial
+# Projeto 1 - InteligÃªncia Artificial
 #
-# Ficheiro destinado a implementar os métodos de procura.
+# Ficheiro destinado a implementar os mÃ©todos de procura.
 #
 # Docente > Joaquim Filipe
 #
@@ -13,7 +13,7 @@
 |#
 
 (defun novo-sucessor (no operador heuristica)
-  "Gera um novo nó, a partir do operador e nó pai"
+  "Gera um novo nÃ³, a partir do operador e nÃ³ pai"
   (cond ((or (null no) (null operador)) nil)
         (t (novo-sucessor-recursivo no operador heuristica))
   )
@@ -32,7 +32,7 @@
 )
 
 (defun sucessores (no operadores procura &key(profundidade)(limite 0)(heuristica 'heuristica-1))
-  "Gera a lista de sucessores do nó"
+  "Gera a lista de sucessores do nÃ³"
   (cond ((null no) nil)
         ((null operadores) nil)
         ((null procura) nil)
@@ -51,12 +51,12 @@
 )
 
 (defun abertos-bfs (abertos sucessores)
-  "Adiciona os sucessores a lista dos nós abertos no fim"
+  "Adiciona os sucessores a lista dos nÃ³s abertos no fim"
   (append abertos sucessores)
 )
  
 (defun abertos-dfs (abertos sucessores)
-  "Adiciona os sucessores a lista dos nós abertos no início"
+  "Adiciona os sucessores a lista dos nÃ³s abertos no inÃ­cio"
   (append sucessores abertos)
 )
 
@@ -130,12 +130,12 @@
 )
 
 (defun heuristica-1 (tabuleiro)
-  "Calcula a heurística de acordo com a quantidade de movimentos possiveis no tabuleiro (Dado pelo professor!)"
+  "Calcula a heurÃ­stica de acordo com a quantidade de movimentos possiveis no tabuleiro (Dado pelo professor!)"
   (/ 1 (+ (movimentos-possiveis tabuleiro) 1))
 )
 
 (defun ordenar-nos (nos)
-  "Ordena os nós de acordo com o valor de cada um"
+  "Ordena os nÃ³s de acordo com o valor de cada um"
   (cond ((null nos) nil)
         (t (let ((min-no (ordenar-nos-recursivo (first nos) (cdr nos))))
                 (cons min-no (ordenar-nos (remove min-no nos)))
